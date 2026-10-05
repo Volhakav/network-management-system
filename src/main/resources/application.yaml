@@ -1,0 +1,9 @@
+ktor:
+  deployment:
+    port: 8085
+  application:
+    modules:
+      - com.example.SerializationKt.configureSerialization
+      - com.example.SseKt.configureSse
+      - com.example.StatusPagesKt.configureStatusPages
+      - com.example.RoutingKt.configureRouting
