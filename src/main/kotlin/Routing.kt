@@ -3,19 +3,18 @@ package com.example
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.sse.*
-import io.ktor.sse.*
 
 fun Application.configureRouting() {
+    val topology = loadTopology()
+    log.info("Loaded ${topology.devices.size} devices, ${topology.connections.size} connections")
+
     routing {
         get("/") {
-            call.respondText("Hello, World!")
+            call.respondText("Network management system is running")
         }
-        get("/json/kotlinx-serialization") {
-            call.respond(mapOf("hello" to "world"))
-        }
-        sse("/hello") {
-            send(ServerSentEvent("world"))
+        // TEMPORARY: only to check in the browser that the data was loaded
+        get("/debug/devices") {
+            call.respond(topology.devices)
         }
     }
 }
