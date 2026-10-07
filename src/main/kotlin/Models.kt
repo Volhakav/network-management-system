@@ -32,7 +32,7 @@ sealed interface ReachabilityEvent {
 
     @Serializable
     @SerialName("INITIAL_STATE")
-    data class InitialState(val deviseIds: List<Int>) : ReachabilityEvent
+    data class InitialState(val deviceIds: List<Int>) : ReachabilityEvent
 
     @Serializable
     @SerialName("ADDED")
