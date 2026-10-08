@@ -41,6 +41,11 @@ Content-Type: application/json
 An SSE stream. Content-Type is `text/event-stream`. The connection stays open and the
 server pushes an event whenever the set of reachable devices changes.
 
+### `GET /topology` (extra, not part of the assignment)
+
+Returns all devices with their current `active` flag and all connections as JSON.
+It exists only so the web UI knows what to draw.
+
 ## Event protocol
 
 To save bandwidth the server never resends the whole set. It sends one snapshot
@@ -129,3 +134,18 @@ Sosnowiec, so nothing is reachable any more.
 
 ![Scenario 4](docs/screenshots/scenario-4a.png)
 ![Scenario 4](docs/screenshots/scenario-4b.png)
+
+## Web UI (optional)
+
+A React UI in `frontend/` shows the network and lets you turn devices on and off.
+Start the backend, then:
+
+```
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:5173. Details are in [frontend/README.md](frontend/README.md).
+
+![UI](docs/screenshots/ui.png)
