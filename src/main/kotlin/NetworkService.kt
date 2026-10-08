@@ -14,7 +14,10 @@ fun diff(old: Set<Int>, new: Set<Int>): List<ReachabilityEvent> =
     (old - new).sorted().map { ReachabilityEvent.Removed(it) } +
             (new - old).sorted().map { ReachabilityEvent.Added(it) }
 
-class NetworkService(private val graph: NetworkGraph) {
+class NetworkService(
+    private val graph: NetworkGraph,
+    private val topology: Topology
+) {
 
     private val mutex = Mutex()
     private val subscribers = mutableSetOf<Subscriber>()
@@ -48,5 +51,12 @@ class NetworkService(private val graph: NetworkGraph) {
             }
         }
         true
+    }
+
+    suspend fun currentTopology(): Topology = mutex.withLock {
+        Topology(
+            devices = topology.devices.map { it.copy(active = graph.isActive(it.id)) },
+            connections = topology.connections
+        )
     }
 }

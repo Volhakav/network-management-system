@@ -15,11 +15,15 @@ fun Application.configureRouting() {
     val topology = loadTopology()
     log.info("Loaded ${topology.devices.size} devices, ${topology.connections.size} connections")
 
-    val service = NetworkService(NetworkGraph(topology))
+    val service = NetworkService(NetworkGraph(topology), topology)
 
     routing {
         get("/") {
             call.respondText("Network management system is running")
+        }
+
+        get("/topology") {
+            call.respond(service.currentTopology())
         }
 
         patch("/devices/{id}") {
