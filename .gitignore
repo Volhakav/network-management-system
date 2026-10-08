@@ -4,3 +4,5 @@ build/
 *.iml
 out/
 .kotlin/
+node_modules/
+dist/
